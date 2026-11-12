@@ -10,9 +10,10 @@ flowchart LR
     SKILL[SKILL.md<br/>skill'in kendisi] -. yükleme .-> Claude[claude.ai / Claude Code<br/>skill listesi]
     README[README.md<br/>günlük] --- MIMARI[MIMARI.md<br/>bu dosya]
     PLAN[plan/<br/>GG_AA_YYYY_N.md] --- README
+    ARS[arastirma/<br/>GG_AA_YYYY_N.md] --- PLAN
 ```
 
-`README.md`, `MIMARI.md` ve `plan/` yalnızca proje kaydıdır. `SKILL.md` bunlara başvurmaz, Claude da skill çalışırken bunları okumaz.
+`README.md`, `MIMARI.md`, `plan/` ve `arastirma/` yalnızca proje kaydıdır. `SKILL.md` bunlara başvurmaz, Claude da skill çalışırken bunları okumaz.
 
 ## 3. Dosyalar ve görevleri
 | Dosya | Görevi | Kimden çağrılır | Neyi çağırır |
@@ -21,6 +22,7 @@ flowchart LR
 | `README.md` | Proje tanımı ve değişiklik günlüğü | İnsan / Claude (oturum başı) | — |
 | `MIMARI.md` | Yapı, akış, bilinen sorunlar, yön bulma | İnsan / Claude (oturum başı) | — |
 | `plan/` | Tarihli iş planları | İnsan / Claude | — |
+| `arastirma/` | Tarihli araştırma raporları (planların dayanağı, zip'e girmez) | İnsan / Claude (plan yazarken) | — |
 
 ## 4. Ana akış (mevcut `SKILL.md`)
 

@@ -10,6 +10,17 @@ Herhangi bir programlama dilini veya sorgu dilini sıfırdan ileri seviyeye öğ
 
 ## Değişiklik Günlüğü
 
+### 12.11.2026 — "Her dil, baştan sona" tasarım araştırması
+**Plan:** plan/12_11_2026_1.md (onay bekliyor; 09_11_2026_1'i içerir ve genişletir)
+**Değişen dosyalar:**
+- `arastirma/12_11_2026_1.md`: oluşturuldu. 29 kaynaklı rapor: dil aileleri, öğretim yöntemleri, müfredat çerçeveleri, skill yazım kuralları.
+- `plan/12_11_2026_1.md`: oluşturuldu.
+- `MIMARI.md`: `arastirma/` klasörü eklendi.
+**Alınan kararlar:**
+- Araştırma raporları `arastirma/GG_AA_YYYY_N.md` biçiminde tutulur ve zip'e girmez.
+**Açık kalan işler:**
+- Plan 12_11_2026_1'in onayı ve K1–K5 kararları (mimari, profil tablosu, Bölüm 6, ilerleme kaydı, evals).
+
 ### 09.11.2026 — Kayıt düzeni kuruldu
 **Plan:** — (ilk kurulum). Açık plan: `plan/09_11_2026_1.md` (onay bekliyor)
 **Değişen dosyalar:**
