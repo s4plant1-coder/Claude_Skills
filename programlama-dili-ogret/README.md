@@ -4,11 +4,25 @@ Herhangi bir programlama dilini veya sorgu dilini sıfırdan ileri seviyeye öğ
 
 ## Hızlı bilgi
 - Dil / altyapı: Markdown (YAML ön bilgili `SKILL.md`)
-- Ana dosya: `SKILL.md`
+- Ana dosya: `SKILL.md`; ayrıntılar `references/`, şablonlar `assets/` klasöründe; testler `evals/` klasöründe
 - Mimari ve işleyiş: [MIMARI.md](MIMARI.md)
 - Planlar: [plan/](plan/)
 
 ## Değişiklik Günlüğü
+
+### 13.11.2026 — Skill araştırmaya dayalı olarak yeniden yapılandırıldı (B mimarisi)
+**Plan:** plan/12_11_2026_1.md (tamamlandı; 09_11_2026_1'in yerine geçti)
+**Değişen dosyalar:**
+- `SKILL.md`: yeniden yazıldı (342 → 189 satır). Tek açıklama, 8 adımlı iş akışı, `|` tablolar, yapay zekâ öğretmen kuralları, doğrulama döngüsü, 3 örnek.
+- `references/` (5 dosya), `assets/` (3 şablon), `evals/evals.json` (5 senaryo): oluşturuldu.
+- `MIMARI.md`: yeniden yazıldı. `plan/09_11_2026_1.md`: durumu güncellendi.
+**Alınan kararlar:**
+- K1–K5 önerildiği gibi uygulandı: B mimarisi; profil tablosu kurulum dosyasına taşındı; Bölüm 6 eklendi; ilerleme kaydı eklendi; evals eklendi.
+- SQL araç tablosu ve C++ "Derinleşmek için" tablosu kaldırıldı. Bu bilgiler artık araştırma çıktısından gelir.
+**Açık kalan işler:**
+- Yeni zip'in claude.ai'ye yüklenmesi. Komut, üst klasörden: `zip -r programlama-dili-ogret.zip programlama-dili-ogret -x 'programlama-dili-ogret/README.md' 'programlama-dili-ogret/MIMARI.md' 'programlama-dili-ogret/plan/*' 'programlama-dili-ogret/arastirma/*' 'programlama-dili-ogret/evals/*' '*/.DS_Store'`
+- evals'ın çalıştırılması.
+- Kurulum kuralının tek konuluk ders isteklerindeki davranışı (karar bekliyor; MIMARI §6).
 
 ### 12.11.2026 — "Her dil, baştan sona" tasarım araştırması
 **Plan:** plan/12_11_2026_1.md (onay bekliyor; 09_11_2026_1'i içerir ve genişletir)

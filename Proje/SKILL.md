@@ -1,25 +1,106 @@
 ---
 name: "proje"
-description: "sadece klasörler için geçerli"
+description: "Yeni bir proje oluştururken veya bir proje klasöründe çalışmaya başlarken kullanılır. Her projeyi aynı standart iskeletle kurar (README.md, MIMARI.md, plan/, docs/, src/, tests/ ve proje türüne göre ek klasörler) ve her değişikliği plan → onay → uygula → kaydet düzeniyle yürütür. 'Yeni proje', 'projeyi başlat', 'klasörü proje skill'i ile aç' gibi isteklerde ve proje klasöründe kod/dosya değişikliği istendiğinde tetiklenir."
 ---
 
 
-# Proje Kayıt Düzeni
+# Proje Düzeni
 
-Amaç: Projede yapılan her şeyin kayıtlı, geriye dönük izlenebilir ve kullanıcı onaylı olması.
+Amaç: Her projenin aynı mimariyle kurulması; projede yapılan her şeyin kayıtlı, geriye dönük izlenebilir ve kullanıcı onaylı olması.
 Her zaman Türkçe yaz.
+
+## Standart proje iskeleti
+
+Her proje aynı iskeletle kurulur. Yeni proje kurulumunda (0.A) ve uyum kontrolünde (0.B) bu bölümü esas al.
+
+● = kurulumda her projede açılır. ○ = gerektiğinde açılır, yalnızca bu adla.
+
+```
+<project-name>/
+├── README.md              ● tanım, hızlı bilgi, değişiklik günlüğü
+├── MIMARI.md              ● projenin hafızası: yapı, akışlar, veri, hızlı yön bulma
+├── plan/                  ● GG_AA_YYYY_N.md planları
+├── docs/                  ● belgeler
+│   ├── research/          ● araştırma notları ve kaynakça (kurulum araştırması: setup.md)
+│   ├── decisions/         ○ büyük kararlar (ADR): 0001-short-title.md
+│   └── guides/            ○ kurulum, kullanım, geliştirme kılavuzları
+├── src/                   ● kaynak kod (iç düzeni dilin resmî kuralına göre)
+├── tests/                 ● testler
+│   ├── unit/              ○ birim testleri
+│   ├── integration/       ○ entegrasyon testleri
+│   ├── e2e/               ○ uçtan uca testler
+│   └── fixtures/          ○ test verileri
+├── examples/              ○ kullanım örnekleri (kütüphane, komut satırı aracı)
+├── scripts/               ○ kurulum, derleme, veri yükleme betikleri
+├── config/                ○ ayar dosyaları (ortama göre: development, production)
+├── db/                    ○ veritabanı
+│   ├── migrations/        ○ şema değişiklikleri
+│   └── seeds/             ○ başlangıç verisi
+├── data/                  ○ veri
+│   ├── raw/               ○ ham veri (asla değiştirilmez)
+│   └── processed/         ○ işlenmiş veri
+├── notebooks/             ○ Jupyter vb. defterler
+├── assets/                ○ görsel, yazı tipi, statik dosyalar
+├── third_party/           ○ depoya gömülen dış kod (paket yöneticisiyle gelmeyen)
+├── .github/workflows/     ○ CI (GitHub kullanılıyorsa)
+├── .gitignore             ●
+├── .gitattributes         ● satır sonu (LF) ve ikili dosya kuralları
+├── .editorconfig          ● girinti, karakter kodlaması, satır sonu
+├── .env.example           ○ gerekli ortam değişkenleri, değerleri boş
+└── LICENSE                ○ proje paylaşılacaksa
+```
+
+### Proje türü profilleri
+
+Kurulumda ● öğelere ek olarak proje türüne göre şu ○ öğeleri de aç:
+
+| Proje türü | Kurulumda ek açılanlar |
+|---|---|
+| Web uygulaması / API | `config/`, `.env.example`, `assets/`, veritabanı varsa `db/migrations/` + `db/seeds/` |
+| Kütüphane / paket | `examples/`, `LICENSE` (sor) |
+| Komut satırı aracı | `examples/`, `scripts/` |
+| Veri / analiz / ML | `data/raw/`, `data/processed/`, `notebooks/` |
+| Claude skill | Çerçeve istisnası: `SKILL.md` kökte; `scripts/`, `references/`, `assets/` (Anthropic skill düzeni). Kayıt katmanı aynı kalır. |
+| Kendi düzenini dayatan çerçeve (Laravel, Next.js, Android, Unity, Flutter …) | Çerçevenin resmî düzeni + kayıt katmanı. Sapmaları MIMARI'ye yaz. |
+
+### İskelet kuralları
+
+- **Kök kuralı:** Kökte yalnızca yukarıdaki öğeler bulunur. İstisnalar: dilin/aracın zorunlu kök dosyaları (`package.json`, `pyproject.toml`, `composer.json`, `go.mod`, `Cargo.toml` ve kilit dosyaları; `Dockerfile`, `compose.yaml`; `Makefile` / `justfile`).
+- **Üretilen dosyalar:** Derleme ve çalışma çıktıları yalnızca şu adlarla oluşur ve `.gitignore`'a yazılır, depoya girmez: `build/` (ara çıktı), `dist/` (dağıtım paketi), `logs/`, `tmp/`, `.env`, bağımlılık klasörleri (`node_modules/`, `.venv/` vb.).
+- **Adlandırma:** Klasör ve yeni dosya adları İngilizce ve küçük harfle yazılır; boşluk ve Türkçe karakter (ç, ğ, ı, ö, ş, ü) içermez. Kod dosyalarının adları dilin resmî stil kılavuzuna göre verilir (ör. Python `snake_case.py`, Java `PascalCase.java`); bu stil kurulumda araştırılır. **İstisna:** kayıt katmanının adları (`README.md`, `MIMARI.md`, `plan/`, `GG_AA_YYYY_N.md`) değişmez.
+- **Testlerin yeri:** Testler `tests/` altında durur. Dilin kuralı testi kodun yanında istiyorsa (Go `_test.go`, Rust birim testleri) o kural uygulanır ve sapma olarak yazılır.
+- **Karar kayıtları:** README günlüğündeki "Alınan kararlar" kısa kalır. Geri dönmesi zor kararlar (dil, çerçeve, veritabanı, mimari) için `docs/decisions/0001-short-title.md` aç (Bağlam / Seçenekler / Karar / Sonuçlar) ve günlükte bu dosyaya bağlantı ver. Ayrı `CHANGELOG.md` açma; günlük README'de tutulur.
+- **Çerçeve istisnası:** Kendi düzenini dayatan çerçevelerde çerçevenin resmî düzeni uygulanır. Kayıt katmanı (README.md, MIMARI.md, plan/, docs/) yine aynı kalır.
+- **Sapmalar:** Standarttan her sapma gerekçesiyle birlikte MIMARI.md §2'deki "Standarttan sapmalar" tablosuna yazılır.
 
 ## 0. Oturum başında (her seferinde)
 
 1. Çalışılan proje klasörünü belirle. Bağlı bir proje klasörü yoksa kullanıcıya söyle: kayıtların kalıcı olması için görevin bilgisayardaki proje klasörüne bağlanması gerekir.
-2. Proje kökünde şunları kontrol et:
+2. Klasör boşsa veya kullanıcı yeni bir proje başlattığını söylüyorsa aşağıdaki **0.A Yeni proje kurulumu** akışına geç.
+3. Proje kökünde şunları kontrol et:
    - `README.md`
    - `MIMARI.md`
    - `plan/` klasörü
-3. Varsa: aşağıdaki **"Az okuma (token tasarrufu)"** kuralına göre yalnızca README.md'nin son günlük kayıtlarını, MIMARI.md'yi ve `plan/` içindeki tamamlanmamış planları oku. Kullanıcıya kısaca "En son şunlar yapılmıştı, açık kalan işler şunlar" diye özetle.
+4. Varsa: aşağıdaki **"Az okuma (token tasarrufu)"** kuralına göre yalnızca README.md'nin son günlük kayıtlarını, MIMARI.md'yi ve `plan/` içindeki tamamlanmamış planları oku. Kullanıcıya kısaca "En son şunlar yapılmıştı, açık kalan işler şunlar" diye özetle.
    - Projede eski adla `TASARIM.md` varsa kullanıcıya sor; onay verirse `MIMARI.md` olarak yeniden adlandır.
    - `plan/` içinde adlandırma kuralına uymayan dosyalar varsa (ör. `YAPILACAKLAR.md`, `2026-10-26_konu.md`) kullanıcıya listele; onay verirse içindeki tarihe göre (tarih yoksa dosyanın oluşturulma tarihine göre) `GG_AA_YYYY_N.md` biçiminde yeniden adlandır.
-4. Yoksa: kullanıcıya oluşturacağını söyle, aşağıdaki şablonlarla oluştur. (Bu kayıt dosyalarını oluşturmak için ayrıca izin gerekmez; proje kodunu değiştirmek için gerekir.) Tüm projeyi baştan inceleme yalnızca bu ilk kurulumda yapılır.
+   - **0.B Uyum kontrolü**nü yap; yeni bir sapma varsa özete "Standarttan sapmalar: …" satırını ekle.
+5. Yoksa (klasörde dosyalar var ama kayıtlar yok): kullanıcıya oluşturacağını söyle, aşağıdaki şablonlarla oluştur. (Bu kayıt dosyalarını oluşturmak için ayrıca izin gerekmez; proje kodunu değiştirmek için gerekir.) Tüm projeyi baştan inceleme yalnızca bu ilk kurulumda yapılır. MIMARI.md §2'ye projenin gerçek klasör ağacını ve standarttan sapmalarını yaz; hiçbir şeyi taşıma.
+
+### 0.A Yeni proje kurulumu
+
+1. Bu akış klasör boşsa veya kullanıcı yeni bir proje başlattığını söylüyorsa çalışır.
+2. Eksik bilgileri sor: proje adı, 1–2 cümlelik amaç, dil / altyapı / çerçeve, proje türü (profili seçmek için, bkz. "Proje türü profilleri").
+3. Dilin/çerçevenin resmî belgelerinden önerilen proje düzenini, dosya adlandırma stilini, `.gitignore` ve `.editorconfig` değerlerini araştır. İnternete bağlanmadan önce sor. Bulduklarını ve kaynakları kurulum planına ekle.
+4. Kurulum planını yaz: `plan/GG_AA_YYYY_1.md`, konu "Proje kurulumu". Planda kurulacak ağaç (● öğeler + profilin ○ öğeleri) ve varsa standarttan sapmalar gerekçeleriyle yer alır. Açık onay bekle.
+5. Onaydan sonra iskeleti oluştur. Git boş klasörleri izlemediği için boş kalan klasörlere `.gitkeep` koy.
+6. `README.md` ve `MIMARI.md`'yi şablonlarla doldur; MIMARI §2'ye klasör ağacını ve sapma tablosunu yaz. 3. adımdaki araştırmanın özetini ve kaynaklarını `docs/research/setup.md`'ye yaz.
+7. Git deposu yoksa `git init` öner; yalnızca onayla çalıştır.
+8. Kapanış (§3): README günlüğüne "Proje kuruldu" kaydını ekle ve commit mesajını ver.
+
+### 0.B Uyum kontrolü (var olan proje)
+
+Yalnızca kökteki dosya listesine bak; alt klasörlere girme. Listeyi "Standart proje iskeleti" ve MIMARI.md'deki "Standarttan sapmalar" tablosuyla karşılaştır. Tabloda olmayan yeni bir fark varsa oturum başı özetinde bildir. Hiçbir şeyi taşıma; kullanıcı isterse ayrı bir taşıma planı yaz.
 
 ## Az okuma (token tasarrufu) — ZORUNLU
 
@@ -133,6 +214,14 @@ Projenin amacı ve kapsamı.
 ## 2. Mimari
 (Mermaid diyagramı: dosyalar/modüller ve birbirleriyle ilişkisi)
 
+### Klasör düzeni
+(Projenin gerçek klasör ağacı; yalnızca açılmış klasörler)
+
+### Standarttan sapmalar
+| Klasör / dosya | Standart | Bu projede | Neden |
+|---|---|---|---|
+| ör. testler | `tests/` | kodun yanında `*_test.go` | Go'nun test kuralı |
+
 ## 3. Dosyalar ve görevleri
 | Dosya | Görevi | Kimden çağrılır | Neyi çağırır |
 |---|---|---|---|
@@ -149,7 +238,7 @@ Kullanılan tablolar, önemli alanlar, alanların anlamı ve hesap kuralları
 ## 7. Hızlı yön bulma (hangi iş → nereye bakılır)
 | Konu / ekran | Dosya | Fonksiyon / bölüm (yaklaşık satır) |
 |---|---|---|
-| ör. Stok özet kartları | `lib/stok_islemleri/stok_ozet.php` | ana SQL (~90), kartlar (~380) |
+| ör. Stok özet kartları | `src/stock/stock_summary.php` | ana SQL (~90), kartlar (~380) |
 ```
 
 ### plan/GG_AA_YYYY_N.md

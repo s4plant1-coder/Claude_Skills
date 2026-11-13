@@ -1,0 +1,72 @@
+{
+  "skill_name": "programlama-dili-ogret",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Python biliyorum, Go öğrenmek istiyorum, müfredat çıkar.",
+      "expected_output": "Önce Go için sınıflandırma kartı, araştırma çıktısı ve kaynakça; ardından Python→Go transfer tablosu, 22 modüllük uyarlanmış müfredat tablosu ve Go Specification ile kapsam matrisi.",
+      "files": [],
+      "expectations": [
+        "Müfredattan önce bir araştırma çıktısı ve numaralı bir kaynakça veriliyor; kaynaklar arasında en az bir birincil kaynak (Go Specification veya go.dev belgeleri) var.",
+        "Sınıflandırma kartı dolduruluyor ve Go aile 1 (emperatif / nesne yönelimli genel amaçlı) olarak sınıflanıyor.",
+        "Python→Go transfer tablosu var ve en az bir satır '⚠ Sahte dost' olarak işaretli (ör. tam sayı bölme veya dilim paylaşımı).",
+        "Goroutine ve kanallar eşzamanlılık modülünde (Modül 15) yer alıyor.",
+        "Modül tablosunda 'Ön koşul' ve 'Kaynak' sütunları var; Python'dan bilinen temel konular 'Hızlı tekrar' olarak işaretli.",
+        "Sonda resmi referansın bölümleriyle eşlenmiş bir kapsam matrisi veya özeti ve ilk dersi başlatacak net bir adım var."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Verilog'da always bloğunu anlat, hiç bilmiyorum.",
+      "expected_output": "Donanım tanımlama ailesine göre kurulmuş bir ders: eşzamanlı çalışma modeli, = ile <= farkı, 'satırlar sırayla çalışır' yanlış kavraması, benzetici önerisi ve ders şablonunun başlıkları.",
+      "files": [],
+      "expectations": [
+        "Dil aile 8 (donanım tanımlama) olarak sınıflanıyor.",
+        "Kavramsal makine anlatılıyor: always blokları aynı anda çalışır, kayıtlar saat kenarında güncellenir.",
+        "'Satırlar sırayla çalışır' yanlış kavraması sık hatalarda veya bir quiz çeldiricisinde açıkça ele alınıyor.",
+        "Bloklayan (=) ve bloklamayan (<=) atama farkı bir örnekle gösteriliyor.",
+        "Bir benzetici (ör. Icarus Verilog, Verilator veya EDA Playground) öneriliyor; örnekler çalıştırılamadıysa 'çalıştırılarak doğrulanmadı' diye işaretleniyor.",
+        "Ders, ders şablonunun başlıklarını izliyor; en az 3 örnek, 3 sık hata, 5 alıştırma ve 5 quiz sorusu içeriyor ve çözümler sonda veriliyor."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Forth öğrenmek istiyorum.",
+      "expected_output": "Az kaynaklı dil yolu: kaynak zenginliği düşük olarak belirlenir, birincil kaynaklara dayanan bir araştırma çıktısı, lehçe seçimi ve gerekçesi, doğrulanamayan bilgilerin işaretlenmesi.",
+      "files": [],
+      "expectations": [
+        "Dil aile 12 (yığın tabanlı) olarak sınıflanıyor ve kaynak zenginliği düşük (veya düşük–orta) olarak belirtiliyor.",
+        "Kaynakların az olduğu kullanıcıya açıkça söyleniyor.",
+        "Kaynakçada birincil kaynaklar ağırlıkta (ör. Forth-2012 standardı, Gforth kılavuzu, Starting FORTH).",
+        "Öğretilecek lehçe veya uygulama seçiliyor ve gerekçesi veriliyor.",
+        "Doğrulanamayan bilgiler 'doğrulanmadı' diye işaretleniyor; örnek kodlar ya çalıştırılmış ya da 'çalıştırılarak doğrulanmadı' etiketi taşıyor."
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "SQL JOIN için quiz hazırla.",
+      "expected_output": "Kavram, kod okuma ve hata bulma sorularını karıştıran, her çeldiricisi belirli bir yanlış kavramaya bağlı bir JOIN quizi; cevaplar kullanıcı yanıtladıktan sonra.",
+      "files": [],
+      "expectations": [
+        "En az 5 soru var ve kavram, kod okuma ve hata bulma türleri karışık.",
+        "Çoktan seçmeli sorulardaki her yanlış şık adlandırılmış bir yanlış kavramaya bağlanıyor.",
+        "Yanlış kavramalar arasında NULL eşleşmesi veya üç değerli mantık ile LEFT JOIN'de WHERE filtresinin sonucu INNER JOIN'e çevirmesi yer alıyor.",
+        "Cevaplar soruların hemen altında değil, kullanıcı yanıtladıktan sonra veya ayrı bir cevap bölümünde veriliyor.",
+        "Değerlendirmede 'Bu şıkkı seçtiysen şunu düşünmüş olabilirsin' biçiminde açıklama var."
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Lean 4 ile kanıt yazmayı öğret.",
+      "expected_output": "Kanıt asistanı ailesine göre kurulan bir başlangıç: önerme–tip ilişkisi, hedef durumu ve taktikler; araştırmayla doğrulanmış kurulum (elan, lake, VS Code eklentisi).",
+      "files": [],
+      "expectations": [
+        "Dil aile 13 (kanıt asistanı / bağımlı tipli) olarak sınıflanıyor.",
+        "Önermelerin tip, kanıtların o tipin değerleri olduğu (Curry–Howard) basit bir dille anlatılıyor.",
+        "Kurulum elan ve lake ile anlatılıyor ve resmi kaynağa (Lean belgeleri) bağlanıyor.",
+        "Hedef durumunu (goal) okumak ve en az bir taktik örnekle gösteriliyor.",
+        "'sorry' ile kapatılan kanıtın tamamlanmış sayılmadığı uyarısı veya benzer bir yanlış kavrama ele alınıyor."
+      ]
+    }
+  ]
+}

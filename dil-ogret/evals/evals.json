@@ -1,0 +1,94 @@
+{
+  "skill_name": "dil-ogret",
+  "aciklama": "dil-ogret skill'inin test istemleri. 1-3 alt ajan simülasyonuyla denenir (Plan 13_11_2026_1). 4-5 tetiklenme testidir, claude.ai'de skill yüklüyken elle denenir. Plan 09_11_2026_2 bu seti 9 isteme tamamlayacak. 'yeni_davranis' işaretli beklentiler, taban testinden sonra eklenen kuralları ölçer; taban testinde kalması beklenebilir.",
+  "evals": [
+    {
+      "id": 1,
+      "name": "japonca_program",
+      "prompt": "Japonca öğrenmek istiyorum, hiç bilmiyorum, bana program hazırla.",
+      "test_yeri": "alt ajan",
+      "varsayilan_kullanici_cevaplari": "Sorulursa: Amacım genel iletişim, bir de dizi ve anime izlemek. Haftada 5 saat ayırabilirim. Ana dilim Türkçe, İngilizcem B1.",
+      "expected_output": "Kısa girdi sorusu (ya da açık varsayımlar), araştırmaya dayalı dil profili ve kaynakça, Bölüm 0 + A1-C2 program tablosu, ilk dersi başlatan adım.",
+      "files": [],
+      "expectations": [
+        "Eksik girdileri (amaç, haftalık süre) tek mesajda sorar ya da varsayımlarını açıkça yazıp devam eder; birden fazla soru turu yapmaz.",
+        "Programdan önce web araştırması yapılır; çıktıda numaralı bir kaynakça vardır ve program modülleri [n] biçiminde kaynak atfı taşır.",
+        "Dil profili üç yazı sistemini (hiragana, katakana, kanji) ve nezaket dilini (keigo) anlatır.",
+        "JLPT ile CEFR arasında resmî bir eşleme olmadığı ya da eşlemenin tartışmalı olduğu belirtilir.",
+        "FSI süre tahmini verilirse bunun İngilizce ana dilliler ve yoğun sınıf koşulları için olduğu uyarısı yazılır.",
+        "Bölüm 0'da kana öğretilir; kanji A1'den itibaren sıklık sırasıyla kademeli verilir.",
+        "Türkçe ile benzerlikler (eklemeli yapı, fiilin cümle sonunda olması) köprü olarak kullanılır.",
+        "Program tablosu şu sütunları içerir: Modül, Konular, Dil bilgisi, Kelime hedefi, Tahmini süre, Sonunda yapabilirim.",
+        "Program ilk dersi başlatacak net bir adımla biter."
+      ],
+      "gozlem": [
+        "Programdan önceki araştırma bölümünün uzunluğu (yaklaşık satır sayısı). Plan 09_11_2026_2, sorun 8."
+      ]
+    },
+    {
+      "id": 2,
+      "name": "ispanyolca_b1_ders",
+      "prompt": "İspanyolca B1 seviyesindeyim, bana geçmiş zamanlar dersi ver.",
+      "test_yeri": "alt ajan",
+      "varsayilan_kullanici_cevaplari": "Varyant sorulursa: İspanya İspanyolcası. Ana dilim Türkçe. Alıştırma, görev ve quizde cevapların çoğu doğru, ama Türkçe konuşan bir öğrencinin tipik hatalarından 2-3 tane bulunur.",
+      "expected_output": "Kısa bir dil notuyla başlayan, durma noktalarında kullanıcıyı bekleyen, quizle ve tekrar planıyla biten bir B1 dersi.",
+      "files": [],
+      "expectations": [
+        "Seviye ve konu verildiği için gereksiz soru sormadan derse başlar; varyant belirsizse tek kısa soru sorar ya da varsayımını belirtir.",
+        "Varyant farkı not edilir: İspanya ile Latin Amerika arasında pretérito perfecto / pretérito indefinido kullanım farkı.",
+        "[yeni_davranis] Dersten önce 7 parçalı tam araştırma raporu verilmez; birkaç satırlık bir dil notu yeterlidir, kaynakça dersin sonundadır.",
+        "Ders tek mesajda verilmez: alıştırmalarda durur ve çözümleri kullanıcı denemeden vermez.",
+        "Konuşma veya yazma görevinde durur ve kullanıcının üretimini bekler.",
+        "Ders sonunda en az 5 soruluk bir quiz vardır; cevaplar kullanıcı yanıtladıktan sonra değerlendirilir.",
+        "Derinlik kuralları karşılanır: en az 8 kelime, en az 3 örnek cümle, en az 3 sık hata, en az 5 alıştırma.",
+        "Sık hatalar Türkçe konuşan bir öğrencinin aktarım hatalarına göre seçilir ve yanlış → doğru → neden biçiminde verilir.",
+        "Kullanıcının hatalı cevaplarına geri bildirimde önce doğru olan söylenir, sonra hata nedeniyle açıklanır; yanlış kullanım onaylanmaz.",
+        "Ders tekrar planı ve sıradaki ders önerisiyle biter.",
+        "[yeni_davranis] Mesajlarda dersin hangi parçasında olunduğu yazılır (ör. 'Parça 2/4')."
+      ]
+    },
+    {
+      "id": 3,
+      "name": "lazca_az_kaynakli",
+      "prompt": "Lazca öğrenmek istiyorum.",
+      "test_yeri": "alt ajan",
+      "varsayilan_kullanici_cevaplari": "Sorulursa: Pazar (Atina) ağzı, babaannem bu ağzı konuşuyor. Ana dilim Türkçe, sıfırdan başlıyorum. Amacım ailemle konuşabilmek. Haftada 3 saat.",
+      "expected_output": "Ağız sorusu, hata riski uyarısı, belgeleme arşivlerini de kapsayan araştırma, doğrulama işaretli örnekler ve aile içindeki konuşuru kullanan bir program.",
+      "files": [],
+      "expectations": [
+        "Lazcanın ağızları araştırılır ve kullanıcıya hangisini öğrenmek istediği sorulur ya da seçim gerekçesiyle belirtilir.",
+        "Kaynak azlığı ve Claude'un bu dilde akıcı görünen ama yanlış cümle kurabileceği baştan söylenir.",
+        "Belgeleme arşivleri (ELAR, Endangered Languages Project) ve UNESCO Dünya Dilleri Atlası taranır; taranamadıysa bu söylenir.",
+        "Dilin tehlike durumu kaynakla birlikte verilir.",
+        "Lazca için kullanılan yazı sistemi ya da sistemleri araştırmayla belirtilir.",
+        "Örnek cümleler ya kaynağı gösterilerek ya da 'doğrulanmadı' diye işaretlenerek verilir.",
+        "Anadil konuşuru (ör. babaanne) doğrulayıcı ve konuşma partneri olarak programa dahil edilir.",
+        "Resmî bir yeterlik sınavı ya da CEFR eşlemesi yoksa bu dürüstçe söylenir.",
+        "Program numaralı bir kaynakçayla biter."
+      ]
+    },
+    {
+      "id": 4,
+      "name": "ters_test_rust",
+      "prompt": "Rust öğrenmek istiyorum.",
+      "test_yeri": "claude.ai (elle, skill yüklüyken)",
+      "expected_output": "dil-ogret tetiklenmez. Varsa programlama-dili-ogret tetiklenir.",
+      "files": [],
+      "expectations": [
+        "dil-ogret skill'i tetiklenmez."
+      ]
+    },
+    {
+      "id": 5,
+      "name": "ters_test_ceviri",
+      "prompt": "Şu cümleyi İngilizceye çevirir misin: Yarın toplantıya geç kalacağım.",
+      "test_yeri": "claude.ai (elle, skill yüklüyken)",
+      "expected_output": "dil-ogret tetiklenmez. Claude doğrudan çeviriyi verir.",
+      "files": [],
+      "expectations": [
+        "dil-ogret skill'i tetiklenmez.",
+        "Yanıt bir program ya da ders değil, doğrudan çeviridir."
+      ]
+    }
+  ]
+}
